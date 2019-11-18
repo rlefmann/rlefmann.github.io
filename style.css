@@ -1,0 +1,39 @@
+
+body {
+	color: #000;
+	background-color: #fff;
+	font-family: sans-serif;
+	padding: 0;
+	margin: 0;
+}
+
+#menu a {
+	text-decoration: none;
+}
+
+
+#menu {
+	clear: both;
+	color: #39664d;
+	overflow: hidden;
+	background-color: #478061;
+	padding: 0.7ex;
+	border-top: 1px solid #ccc;
+	border-bottom: 1px solid #39664d;
+}
+
+#menu a {
+	padding: 0.5ex 1ex;
+	color: #fff;
+}
+
+#menu a:hover {
+	background-color: #39664d;
+}
+
+
+#main {
+	width: 100%;
+	max-width: 800px;
+	margin: 0 auto;
+}
