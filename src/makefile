@@ -15,7 +15,6 @@ ${TARGETSUBDIRS}:
 	@echo "creating directory" $@
 	@mkdir -p $@
 
-
 ${TARGETDIR}/index.html: ${SOURCEDIR}/index.html ${ASSETS}
 	@echo "creating index page"
 	@cat ${ASSETSDIR}/header.html > $@
@@ -24,11 +23,9 @@ ${TARGETDIR}/index.html: ${SOURCEDIR}/index.html ${ASSETS}
 	@sed '1,/<!-- BLOGINDEX -->/d' $< >> $@
 	@cat ${ASSETSDIR}/footer.html >> $@
 	
-
 ${TARGETDIR}/%.html: ${SOURCEDIR}/%.html ${ASSETS}
 	@echo "creating page" $@
 	@cat ${ASSETSDIR}/header.html $< ${ASSETSDIR}/footer.html > $@
-
 
 clean:
 	rm -rf ${TARGETDIR}/*.html ${TARGETSUBDIRS}
