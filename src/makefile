@@ -22,7 +22,15 @@ ${TARGETDIR}/index.html: ${SOURCEDIR}/index.html ${ASSETS}
 	@sh ./blogindex.sh 3 >> $@
 	@sed '1,/<!-- BLOGINDEX -->/d' $< >> $@
 	@cat ${ASSETSDIR}/footer.html >> $@
-	
+
+${TARGETDIR}/blogindex.html: ${SOURCEDIR}/blogindex.html ${ASSETS}
+	@echo "creating blog index"
+	@cat ${ASSETSDIR}/header.html > $@
+	@sed '/<!-- BLOGINDEX -->/,$$d' $< >> $@
+	@sh ./blogindex.sh >> $@
+	@sed '1,/<!-- BLOGINDEX -->/d' $< >> $@
+	@cat ${ASSETSDIR}/footer.html >> $@
+
 ${TARGETDIR}/%.html: ${SOURCEDIR}/%.html ${ASSETS}
 	@echo "creating page" $@
 	@cat ${ASSETSDIR}/header.html $< ${ASSETSDIR}/footer.html > $@
