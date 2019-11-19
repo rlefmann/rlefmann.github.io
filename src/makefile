@@ -1,39 +1,39 @@
-SOURCEDIR := .
-ASSETSDIR := ../assets
-TARGETDIR := ..
+sourcedir := .
+assetsdir := ../assets
+targetdir := ..
 
-ASSETS := ${ASSETSDIR}/header.html ${ASSETSDIR}/footer.html ${ASSETSDIR}/style.css
-TARGETSUBDIRS := ${shell find ${SOURCEDIR}/* -type d | sed 's/^${SOURCEDIR}/${TARGETDIR}/'}
-SOURCES := ${shell find ${SOURCEDIR} -type f -name "*.html"}
-TARGETS := ${patsubst ${SOURCEDIR}/%.html, ${TARGETDIR}/%.html, ${SOURCES}}
+assets := ${assetsdir}/header.html ${assetsdir}/footer.html ${assetsdir}/style.css
+targetsubdirs := ${shell find ${sourcedir}/* -type d | sed 's/^${sourcedir}/${targetdir}/'}
+sources := ${shell find ${sourcedir} -type f -name "*.html"}
+targets := ${patsubst ${sourcedir}/%.html, ${targetdir}/%.html, ${sources}}
 
 .PHONY: all, publish, clean
 
-all: ${TARGETSUBDIRS} ${TARGETS} ${ASSETS}
+all: ${targetsubdirs} ${targets} ${assets}
 
-${TARGETSUBDIRS}:
+${targetsubdirs}:
 	@echo "creating directory" $@
 	@mkdir -p $@
 
-${TARGETDIR}/index.html: ${SOURCEDIR}/index.html ${ASSETS}
+${targetdir}/index.html: ${sourcedir}/index.html ${assets}
 	@echo "creating index page"
-	@cat ${ASSETSDIR}/header.html > $@
+	@cat ${assetsdir}/header.html > $@
 	@sed '/<!-- BLOGINDEX -->/,$$d' $< >> $@
 	@sh ./blogindex.sh 3 >> $@
 	@sed '1,/<!-- BLOGINDEX -->/d' $< >> $@
-	@cat ${ASSETSDIR}/footer.html >> $@
+	@cat ${assetsdir}/footer.html >> $@
 
-${TARGETDIR}/blogindex.html: ${SOURCEDIR}/blogindex.html ${ASSETS}
+${targetdir}/blogindex.html: ${sourcedir}/blogindex.html ${assets}
 	@echo "creating blog index"
-	@cat ${ASSETSDIR}/header.html > $@
+	@cat ${assetsdir}/header.html > $@
 	@sed '/<!-- BLOGINDEX -->/,$$d' $< >> $@
 	@sh ./blogindex.sh >> $@
 	@sed '1,/<!-- BLOGINDEX -->/d' $< >> $@
-	@cat ${ASSETSDIR}/footer.html >> $@
+	@cat ${assetsdir}/footer.html >> $@
 
-${TARGETDIR}/%.html: ${SOURCEDIR}/%.html ${ASSETS}
+${targetdir}/%.html: ${sourcedir}/%.html ${assets}
 	@echo "creating page" $@
-	@cat ${ASSETSDIR}/header.html $< ${ASSETSDIR}/footer.html > $@
+	@cat ${assetsdir}/header.html $< ${assetsdir}/footer.html > $@
 
 publish:
 	@git add --all
@@ -41,4 +41,4 @@ publish:
 	@git push
 
 clean:
-	rm -rf ${TARGETDIR}/*.html ${TARGETSUBDIRS}
+	rm -rf ${targetdir}/*.html ${targetsubdirs}
